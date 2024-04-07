@@ -1,7 +1,7 @@
 import pprint
 cook_book = {}
 
-with open('recipes.txt') as f:
+with open('recipes.txt', encoding="utf-8") as f:
         lines = f.readlines()
         i = 0
         while i < len(lines):
@@ -38,3 +38,23 @@ def get_shop_list_by_dishes(dishes, person_count):
 
 pprint.pp(cook_book)
 pprint.pp(get_shop_list_by_dishes(['Запеченный картофель', 'Омлет'], 2))
+
+file_names = ['1.txt', '2.txt', '3.txt']
+
+file_contents = []
+
+for filename in file_names:
+    with open(filename, 'r', encoding='utf-8') as f:
+        lines = f.readlines()
+        file_contents.append((filename, len(lines), lines))
+        
+file_contents.sort(key=lambda x: x[1])
+
+with open('result.txt', 'w', encoding='utf-8') as result_file:
+    for file_info in file_contents:
+        file_name, num_lines, lines = file_info
+        result_file.write(f"{file_name}\n")
+        result_file.write(f"{num_lines}\n")
+        for line in lines:
+            result_file.write(line)
+        result_file.write('\n')
